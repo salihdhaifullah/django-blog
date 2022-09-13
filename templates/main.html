@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% endblock %} blog</title>
+        <meta name="description" content="programing Blog JavaScript TypeScript Nodejs Python django C# dotnet MVS dotnet core react angular NextJs html css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.2/css/bulma.min.css">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+        <style>
+            nav.navbar {
+                height: 6rem !important;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+            }
+        </style>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+
+        <section class="section">
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </section>
+
+        {% include 'footer.html' %}
+        <script src="" async defer></script>
+        <script src="https://cdn.tailwindcss.com" async defer></script>
+    </body>
+</html>
