@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.wave {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    width: 100%;
+    left: -65px;
+    bottom: 25px;
+    padding-top: 100%;
+    animation: wave 1200ms linear infinite;
+    z-index: 9999;
+    opacity: 0.45;
+    background: blue;
+}
+
+@keyframes wave {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+
+html,
+body {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.hide-scroll-bar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.spinner {
+    display: flex;
+    width: 38px;
+    height: 38px;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.spinner svg {
+    color: #1f2937;
+    fill: #3b82f6;
+}
+
+.non-selectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

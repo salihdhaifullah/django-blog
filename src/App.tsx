@@ -11,13 +11,13 @@ import Features from './components/Features';
 
 const App = () => {
   return (
-    <div>
+    <div className='flex flex-col gap-8 '>
       <Header />
       <Hero />
       <About />
-      <Apartments />
       <Facilities />
       <Features />
+      <Apartments />
       <Gallery />
       <Reviews />
       <Contact />
