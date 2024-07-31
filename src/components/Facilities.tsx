@@ -27,7 +27,7 @@ const Facilities = () => {
 
       <div className="flex flex-row flex-wrap gap-2 w-full justify-center" id="gallery-items-container">
         {urls.map((url, index) => (
-          <img width={300} src={url} key={url} id={`GALLERY_${index}`} className="cursor-pointer" />
+          <img width={300} src={url} key={url} id={`GALLERY_${index}`} className="cursor-pointer shadow-md rounded-md" />
         ))}
       </div>
 

@@ -18,8 +18,7 @@ const apartments = [
     bedrooms: 2,
     bathrooms: 2,
     guests: 4,
-    description: 'Experience luxury in our Deluxe Apartment with stunning views and premium amenities. Perfect for families or groups seeking extra comfort.',
-    cta: 'Book Now'
+    description: 'Experience luxury in our Deluxe Apartment with stunning views and premium amenities. Perfect for families or groups seeking extra comfort.'
   },
   {
     type: 'Superior Apartment',
@@ -39,8 +38,7 @@ const apartments = [
     bedrooms: 1,
     bathrooms: 1,
     guests: 2,
-    description: 'Our Superior Apartment offers a cozy and elegant space for couples or solo travelers. Enjoy a comfortable stay with all essential amenities.',
-    cta: 'Book Now'
+    description: 'Our Superior Apartment offers a cozy and elegant space for couples or solo travelers. Enjoy a comfortable stay with all essential amenities.'
   },
   {
     type: 'Standard Apartment',
@@ -56,8 +54,7 @@ const apartments = [
     bedrooms: 1,
     bathrooms: 1,
     guests: 2,
-    description: 'Our Standard Apartment provides a budget-friendly option without sacrificing comfort. Ideal for solo travelers looking for a great stay.',
-    cta: 'Book Now'
+    description: 'Our Standard Apartment provides a budget-friendly option without sacrificing comfort. Ideal for solo travelers looking for a great stay.'
   }
 ];
 
@@ -88,12 +85,12 @@ const ApartmentCard = (props: typeof apartments[0]) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-[550px]">
 
       <div ref={e => e && (width.current = e.offsetWidth)} className="flex w-full h-auto overflow-hidden flex-col gap-4">
-        <div ref={container} className="w-auto flex flex-row h-full overflow-x-auto hide-scroll-bar">
+        <div ref={container} className="w-full flex flex-row h-full overflow-x-auto hide-scroll-bar">
           {props.images.map((url) => (
-            <img src={url} key={url}/>
+            <img src={url} key={url} className="w-full"/>
           ))}
         </div>
 
