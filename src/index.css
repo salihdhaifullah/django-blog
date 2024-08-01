@@ -29,6 +29,7 @@ html,
 body {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    background: #fef9c3;
 }
 
 .hide-scroll-bar {
@@ -60,4 +61,9 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+
+.bg-colored {
+    background: #fefce8;
 }

@@ -3,7 +3,7 @@ import { MdBathtub, MdBed, MdPeople } from "react-icons/md";
 
 const apartments = [
   {
-    type: 'Deluxe Apartment',
+    type: 'Deluxe',
     images: [
       '/apartments/deluxe/deluxe-1.jpg',
       '/apartments/deluxe/deluxe-2.jpg',
@@ -21,7 +21,7 @@ const apartments = [
     description: 'Experience luxury in our Deluxe Apartment with stunning views and premium amenities. Perfect for families or groups seeking extra comfort.'
   },
   {
-    type: 'Superior Apartment',
+    type: 'Superior',
     images: [
       '/apartments/superior/superior-1.jpg',
       '/apartments/superior/superior-2.jpg',
@@ -41,7 +41,7 @@ const apartments = [
     description: 'Our Superior Apartment offers a cozy and elegant space for couples or solo travelers. Enjoy a comfortable stay with all essential amenities.'
   },
   {
-    type: 'Standard Apartment',
+    type: 'Standard',
     images: [
       '/apartments/standard/standard-1.jpg',
       '/apartments/standard/standard-2.jpg',
@@ -61,8 +61,13 @@ const apartments = [
 
 const Apartments = () => {
   return (
-    <section className="flex flex-col justify-center p-4">
-      <div className="grid md:grid-cols-3 gap-8">
+    <section className="flex flex-col justify-center p-12 pt-24 w-full items-center gap-8" id="apartments">
+        <div className="flex flex-row text-3xl justify-center items-center w-full gap-2 text-center text-yellow-500">
+        <MdBed className="text-5xl" />
+        <h2>Our Apartments</h2>
+      </div>
+
+      <div className="flex flex-wrap flex-row gap-8 justify-between">
         {apartments.map((apt, index) => (
           <ApartmentCard key={index} {...apt} />
         ))}
@@ -85,12 +90,12 @@ const ApartmentCard = (props: typeof apartments[0]) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-[550px]">
+    <div className="bg-yellow-50 rounded-lg shadow-lg overflow-hidden w-[550px]">
 
       <div ref={e => e && (width.current = e.offsetWidth)} className="flex w-full h-auto overflow-hidden flex-col gap-4">
-        <div ref={container} className="w-full flex flex-row h-full overflow-x-auto hide-scroll-bar">
-          {props.images.map((url) => (
-            <img src={url} key={url} className="w-full"/>
+        <div ref={container} className="w-full flex flex-row h-full overflow-x-auto hide-scroll-bar" id={`${props.type}_container`}>
+          {props.images.map((url, index) => (
+            <img src={url} key={url} className="w-full cursor-pointer gallery_img" id={`${props.type}_${index}`}/>
           ))}
         </div>
 
@@ -102,7 +107,7 @@ const ApartmentCard = (props: typeof apartments[0]) => {
       </div>
 
       <div className="p-6 flex flex-col gap-6 text-center items-center">
-        <h3 className="text-2xl font-semibold text-yellow-500">{props.type}</h3>
+        <h3 className="text-2xl text-yellow-500">{props.type} Apartments</h3>
 
         <div className="flex flex-row justify-evenly w-full text-gray-500">
           <div className="flex items-center gap-2">

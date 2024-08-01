@@ -102,6 +102,7 @@
 
   <script id="gallery-carousel">
     let currentImage;
+    let prefix;
     let isOpen = false;
 
     function openModal() {
@@ -118,9 +119,14 @@
       currentImage = imageId;
 
       const img = document.getElementById("gallery-img");
-      img.src = document.getElementById(`GALLERY_${currentImage}`).src;
+      img.src = document.getElementById(`${prefix}_${currentImage}`).src;
 
       if (!isOpen) openModal()
+    }
+
+    function getLastIndex() {
+      const container = document.getElementById(`${prefix}_container`)
+      return container.children.length - 1;
     }
 
     function initGalleryModal() {
@@ -128,8 +134,7 @@
       const close = document.getElementById("gallery-close")
       const next = document.getElementById("gallery-next")
       const prev = document.getElementById("gallery-prev")
-      const container = document.getElementById("gallery-items-container")
-      const lastIndex = container.children.length-1;
+
 
       function closeGalleryModal() {
         modal.classList.remove('flex');
@@ -138,22 +143,27 @@
       }
 
       function nextImage() {
-        if (currentImage === lastIndex) currentImage = 0
+        if (currentImage === getLastIndex()) currentImage = 0
         else currentImage++
 
         openImage(currentImage);
       }
 
       function prevImage() {
-        if (currentImage === 0) currentImage = lastIndex
+        if (currentImage === 0) currentImage = getLastIndex()
         else currentImage--
 
         openImage(currentImage);
       }
 
-      for (let i = 0; i <= lastIndex; i++) {
-        const img = document.getElementById(`GALLERY_${i}`)
-        img.addEventListener("click", () => openImage(i));
+      const imgs = document.getElementsByClassName("gallery_img")
+
+      for (const img of imgs) {
+        img.addEventListener("click", () => {
+          const data = img.id.split("_");
+          prefix = data[0]
+          openImage(Number(data[1]))
+        });
       }
 
       close.addEventListener("click", closeGalleryModal)
@@ -162,6 +172,25 @@
     }
 
     setTimeout(() => { initGalleryModal() }, 1000)
+  </script>
+
+  <script id="header">
+    function initHeader() {
+      const header = document.getElementById('header');
+      const hero = document.getElementById('hero');
+
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > (hero.clientHeight-80)) {
+          header.classList.remove('fill-white', 'text-white');
+          header.classList.add('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
+        } else {
+          header.classList.remove('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
+          header.classList.add('fill-white', 'text-white');
+        }
+      });
+    }
+
+    setTimeout(() => { initHeader() }, 1000)
   </script>
 </body>
 

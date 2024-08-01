@@ -1,3 +1,4 @@
+import { MdLocalActivity } from "react-icons/md"
 
 const urls = [
   "/gallery/activities-1.jpg",
@@ -15,19 +16,22 @@ const urls = [
   "/gallery/activities-13.jpg",
   "/gallery/activities-14.jpg",
   "/gallery/activities-15.jpg",
-  "/gallery/activities-16.jpg",
-  "/gallery/activities-17.jpg",
+  "/gallery/activities-16.jpg"
 ]
 
 const Gallery = () => {
   return (
-    <div className="flex w-full flex-col p-4 justify-center items-center">
-        <h2 className="text-2xl font-semibold text-blue-600 mb-8 text-center">Gallery</h2>
-        <div className="flex flex-row flex-wrap gap-2 w-full justify-center">
-            {urls.map(url => (
-                <img width={300} className="h-auto" src={url} key={url} />
-            ))}
-        </div>
+    <div className="flex w-full flex-col p-12 pt-24 justify-center items-center gap-8" id="gallery">
+      <div className="flex flex-row text-3xl justify-center items-center w-full gap-2 text-center text-yellow-500">
+        <MdLocalActivity className="text-5xl" />
+        <h2>Our Gallery</h2>
+      </div>
+
+      <div className="flex flex-row flex-wrap gap-2 w-full justify-center" id="gallery_container">
+        {urls.map((url, index) => (
+          <img width={300} className="h-auto gallery_img  shadow-md rounded-md  cursor-pointer" src={url} key={url} id={`gallery_${index}`} />
+        ))}
+      </div>
     </div>
   )
 }

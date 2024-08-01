@@ -7,16 +7,16 @@ import Reviews from './components/Reviews';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import About from './components/About';
-import Features from './components/Features';
+import Slider from './utils/Slider';
 
 const App = () => {
   return (
-    <div className='flex flex-col gap-8 '>
+    <div className='flex flex-col w-full'>
+      <Slider />
       <Header />
       <Hero />
       <About />
       <Facilities />
-      <Features />
       <Apartments />
       <Gallery />
       <Reviews />
