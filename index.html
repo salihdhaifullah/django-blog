@@ -2,77 +2,75 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + React + TS</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-  <script id="reviews-carousel">
-    function reviewsInit() {
-      const back = document.getElementById("review-go-back")
-      const forward = document.getElementById("review-go-forward")
-      const container = document.getElementById("scroll-container")
+    <script id="reviews-carousel">
+        function reviewsInit() {
+            const back = document.getElementById("review-go-back")
+            const forward = document.getElementById("review-go-forward")
+            const container = document.getElementById("scroll-container")
 
-      function isAtEnd() {
-        return container.scrollLeft + container.offsetWidth >= container.scrollWidth;
-      }
+            function isAtEnd() {
+                return container.scrollLeft + container.offsetWidth >= container.scrollWidth;
+            }
 
-      function isAtStart() {
-        return container.scrollLeft === 0;
-      }
+            function isAtStart() {
+                return container.scrollLeft === 0;
+            }
 
-      function goBack() {
-        container.scrollTo({ left: isAtStart() ? container.scrollWidth : container.scrollLeft - 366, behavior: 'smooth' });
-      }
+            function goBack() {
+                container.scrollTo({left: isAtStart() ? container.scrollWidth : container.scrollLeft - 366, behavior: 'smooth'});
+            }
 
-      function goForward() {
-        container.scrollTo({ left: isAtEnd() ? 0 : container.scrollLeft + 366, behavior: 'smooth' });
-      }
-
-
-      back.addEventListener("click", (e) => goBack())
-      forward.addEventListener("click", (e) => goForward())
-    }
-
-    setTimeout(() => { reviewsInit() }, 1000)
-  </script>
+            function goForward() {
+                container.scrollTo({left: isAtEnd() ? 0 : container.scrollLeft + 366, behavior: 'smooth'});
+            }
 
 
-  <script id="contact-form">
-    function initContactForm() {
-      document
-        .getElementById("contact-form")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+            back.addEventListener("click", (e) => goBack())
+            forward.addEventListener("click", (e) => goForward())
+        }
 
-          const firstName = document.getElementById("first-name");
-          const lastName = document.getElementById("last-name")
-          const email = document.getElementById("email")
-          const message = document.getElementById("message")
+        setTimeout(() => {reviewsInit()}, 1000)
+    </script>
 
-          function successCallback() {
-            firstName.value = ""
-            lastName.value = ""
-            email.value = ""
-            message.value = ""
 
-            Swal.fire({
-              icon: "success",
-              title: "Thank you for contacting us",
-              text: "We will get back to you as soon as possible",
-              showConfirmButton: true
-            });
-          }
+    <script id="contact-form">
+        function initContactForm() {
+            document
+                .getElementById("contact-form")
+                .addEventListener("submit", async (e) => {
+                    e.preventDefault();
 
-          const button = document.getElementById("submit-contact-form")
-          const buttonContent = button.innerHTML
-          button.innerHTML = `
+                    const name = document.getElementById("name");
+                    const email = document.getElementById("email")
+                    const message = document.getElementById("message")
+
+                    function successCallback() {
+                        name.value = ""
+                        email.value = ""
+                        message.value = ""
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Thank you for contacting us",
+                            text: "We will get back to you as soon as possible",
+                            showConfirmButton: true
+                        });
+                    }
+
+                    const button = document.getElementById("submit-contact-form")
+                    const buttonContent = button.innerHTML
+                    button.innerHTML = `
                                   <div role="status" class="spinner">
                                       <svg class="animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                           <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -82,116 +80,144 @@
                                   `
 
 
-          await submitContact(
-            firstName.value + " " + lastName.value,
-            email.value,
-            message.value
-          )
-            .then(x => {
-              successCallback()
-            })
-            .finally(() => {
-              button.innerHTML = buttonContent
-            })
-        })
-    }
-
-    setTimeout(() => { initContactForm() }, 1000)
-  </script>
-
-
-  <script id="gallery-carousel">
-    let currentImage;
-    let prefix;
-    let isOpen = false;
-
-    function openModal() {
-      const modal = document.getElementById("bg-modal");
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      isOpen = true;
-    }
-
-    function openImage(imageId) {
-      // if (window.outerWidth < 1024 || window.innerWidth < 1024) return;
-
-      currentImage = imageId;
-
-      const img = document.getElementById("gallery-img");
-      img.src = document.getElementById(`${prefix}_${currentImage}`).src;
-
-      if (!isOpen) openModal()
-    }
-
-    function getLastIndex() {
-      const container = document.getElementById(`${prefix}_container`)
-      return container.children.length - 1;
-    }
-
-    function initGalleryModal() {
-      const modal = document.getElementById("bg-modal")
-      const close = document.getElementById("gallery-close")
-      const next = document.getElementById("gallery-next")
-      const prev = document.getElementById("gallery-prev")
-
-
-      function closeGalleryModal() {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-        isOpen = false;
-      }
-
-      function nextImage() {
-        if (currentImage === getLastIndex()) currentImage = 0
-        else currentImage++
-
-        openImage(currentImage);
-      }
-
-      function prevImage() {
-        if (currentImage === 0) currentImage = getLastIndex()
-        else currentImage--
-
-        openImage(currentImage);
-      }
-
-      const imgs = document.getElementsByClassName("gallery_img")
-
-      for (const img of imgs) {
-        img.addEventListener("click", () => {
-          const data = img.id.split("_");
-          prefix = data[0]
-          openImage(Number(data[1]))
-        });
-      }
-
-      close.addEventListener("click", closeGalleryModal)
-      next.addEventListener("click", nextImage)
-      prev.addEventListener("click", prevImage)
-    }
-
-    setTimeout(() => { initGalleryModal() }, 1000)
-  </script>
-
-  <script id="header">
-    function initHeader() {
-      const header = document.getElementById('header');
-      const hero = document.getElementById('hero');
-
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > (hero.clientHeight-80)) {
-          header.classList.remove('fill-white', 'text-white');
-          header.classList.add('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
-        } else {
-          header.classList.remove('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
-          header.classList.add('fill-white', 'text-white');
+                    await submitContact(
+                        name.value,
+                        email.value,
+                        message.value
+                    )
+                        .then(x => {
+                            successCallback()
+                        })
+                        .finally(() => {
+                            button.innerHTML = buttonContent
+                        })
+                })
         }
-      });
-    }
 
-    setTimeout(() => { initHeader() }, 1000)
-  </script>
+        setTimeout(() => {initContactForm()}, 1000)
+    </script>
+
+
+    <script id="gallery-carousel">
+        let currentImage;
+        let prefix;
+        let isOpen = false;
+
+        function openModal() {
+            const modal = document.getElementById("bg-modal");
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            isOpen = true;
+        }
+
+        function openImage(imageId) {
+            // if (window.outerWidth < 1024 || window.innerWidth < 1024) return;
+
+            currentImage = imageId;
+
+            const img = document.getElementById("gallery-img");
+            img.src = document.getElementById(`${prefix}_${currentImage}`).src;
+
+            if (!isOpen) openModal()
+        }
+
+        function getLastIndex() {
+            const container = document.getElementById(`${prefix}_container`)
+            return container.children.length - 1;
+        }
+
+        function initGalleryModal() {
+            const modal = document.getElementById("bg-modal")
+            const close = document.getElementById("gallery-close")
+            const next = document.getElementById("gallery-next")
+            const prev = document.getElementById("gallery-prev")
+
+
+            function closeGalleryModal() {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+                isOpen = false;
+            }
+
+            function nextImage() {
+                if (currentImage === getLastIndex()) currentImage = 0
+                else currentImage++
+
+                openImage(currentImage);
+            }
+
+            function prevImage() {
+                if (currentImage === 0) currentImage = getLastIndex()
+                else currentImage--
+
+                openImage(currentImage);
+            }
+
+            const imgs = document.getElementsByClassName("gallery_img")
+
+            for (const img of imgs) {
+                img.addEventListener("click", () => {
+                    const data = img.id.split("_");
+                    prefix = data[0]
+                    openImage(Number(data[1]))
+                });
+            }
+
+            close.addEventListener("click", closeGalleryModal)
+            next.addEventListener("click", nextImage)
+            prev.addEventListener("click", prevImage)
+        }
+
+        setTimeout(() => {initGalleryModal()}, 1000)
+    </script>
+
+    <script id="header">
+        function initHeader() {
+            const header = document.getElementById('header');
+            const hero = document.getElementById('hero');
+            const menuButton = document.getElementById("menu-button");
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > (hero.clientHeight - 80)) {
+                    header.classList.remove('fill-white', 'text-white');
+                    header.classList.add('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
+                    for (const child of menuButton.children) {
+                        child.classList.remove("bg-white")
+                        child.classList.add("bg-yellow-500")
+                    }
+                } else {
+                    header.classList.remove('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
+                    header.classList.add('fill-white', 'text-white');
+                    for (const child of menuButton.children) {
+                        child.classList.remove("bg-yellow-500")
+                        child.classList.add("bg-white")
+                    }
+                }
+            });
+        }
+
+        setTimeout(() => {initHeader()}, 1000)
+    </script>
+
+    <script id="nav-bar">
+        function initHamburger() {
+            const menuButton = document.getElementById('menu-button');
+            const navBar = document.getElementById('nav-bar');
+
+            menuButton.addEventListener('click', () => {
+                navBar.classList.toggle('-right-48');
+                navBar.classList.toggle('right-1');
+                menuButton.children[0].classList.toggle('rotate-45');
+                menuButton.children[0].classList.toggle('translate-y-[9px]');
+                menuButton.children[1].classList.toggle('opacity-0');
+                menuButton.children[2].classList.toggle('-rotate-45');
+                menuButton.children[2].classList.toggle('-translate-y-[9px]');
+            });
+        };
+
+        setTimeout(() => {initHamburger()}, 1000);
+    </script>
 </body>
 
 </html>

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .wave {
     position: absolute;
     border-radius: 50%;
