@@ -1,7 +1,9 @@
 const Hero = () => {
   return (
-    <div id="hero" className="relative w-full h-screen overflow-hidden">
+    <section id="hero" className="relative w-full h-screen overflow-hidden">
       <video
+        preload="none"
+        poster="hero-thumbnail.jpg"
         autoPlay
         loop
         muted
@@ -25,7 +27,7 @@ const Hero = () => {
           <div className="wave group-hover:hidden"></div>
         </a>
       </div>
-    </div>
+    </section>
   );
 }
 

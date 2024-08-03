@@ -40,32 +40,37 @@ const data = [
 
 const Reviews = () => {
   return (
-    <div id="reviews" className="flex flex-col justify-center items-center relative p-12 w-full pt-24">
-      <div className="flex flex-col z-[5] gap-8">
+    <section id="reviews" className="flex flex-col justify-center items-center relative w-full">
+      <div className="flex flex-col z-[5] xl:gap-8 gap-2">
 
-      <div className="flex flex-row text-3xl justify-center items-center w-full gap-2 text-center text-yellow-500">
-        <MdReviews className="text-5xl" />
-        <h2>Reviews</h2>
-      </div>
+        <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500">
+          <MdReviews className="md:text-4xl text-3xl" />
+          <h2 className="md:text-3xl text-2xl">Reviews</h2>
+        </div>
 
         <div className="flex flex-row justify-between gap-8 items-center">
-          <IoIosArrowBack id="review-go-back" className="text-5xl p-1 rounded-full text-center shadow-xl justify-center items-center text-blue-500 bg-yellow-50 cursor-pointer sm:flex hidden" />
+          <div id="review-go-back" className="lg:text-4xl text-3xl lg:p-1 p-[3px] rounded-full text-center shadow-xl justify-center items-center text-blue-500 bg-yellow-50 cursor-pointer sm:flex hidden">
+            <IoIosArrowBack />
+          </div>
 
-          <div id="scroll-container" className="2xl:!w-[calc((2*16px)+(3*350px))] lg:!w-[calc((16px)+(2*350px))] !w-[350px] py-10 overflow-x-auto hide-scroll-bar">
-            <div id="total-container" className="flex flex-row !w-[calc((6*16px)+(8*350px))] gap-12 items-center">
+          <div id="scroll-container" className="py-10 2xl:w-[1284px] lg:w-[856px] sm:w-[428px] w-[298px] overflow-x-auto hide-scroll-bar">
+            <div id="total-container" className="flex w-fit flex-row items-center">
               {data.map((review, index) => (
-                <div key={index} id={`review-${index}`} className="flex flex-col !w-[400px] h-[350px] bg-yellow-50 shadow-xl px-6 justify-start gap-4 items-center rounded-3xl py-8">
-                  <h4 className="text-xl italic text-yellow-600 font-semibold">- {review.name} -</h4>
-                  <h6 className="text-lg text-center italic text-gray-500 ">"{review.quote}"</h6>
+                <div key={index} id={`review-${index}`} className="flex !mx-6 flex-col sm:w-[380px] sm:h-[350px] w-[250px] h-[350px] bg-yellow-50 shadow-xl sm:px-6 sm:py-8 sm:gap-4 px-3 py-4 gap-2 justify-start items-center rounded-3xl">
+                  <h4 className="sm:text-xl text-lg italic text-yellow-600 font-semibold">- {review.name} -</h4>
+                  <h6 className="sm:text-lg text-base text-center italic text-gray-500 ">"{review.quote}"</h6>
                 </div>
               ))}
             </div>
           </div>
 
-          <IoIosArrowForward id="review-go-forward" className="text-5xl p-1 rounded-full text-center shadow-xl justify-center items-center text-blue-500 bg-yellow-50 cursor-pointer sm:flex hidden" />
+          <div id="review-go-forward" className="lg:text-4xl text-3xl lg:p-1 p-[3px] rounded-full text-center shadow-xl justify-center items-center text-blue-500 bg-yellow-50 cursor-pointer sm:flex hidden">
+            <IoIosArrowForward />
+          </div>
         </div>
+
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+main>section {
+    padding-top: 96px;
+}
+
 .wave {
     position: absolute;
     border-radius: 50%;
@@ -55,7 +59,7 @@ body {
     fill: #3b82f6;
 }
 
-.non-selectable {
+.none-selectable {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

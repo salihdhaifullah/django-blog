@@ -18,20 +18,20 @@ const urls = [
 
 const Facilities = () => {
   return (
-    <div className="flex w-full flex-col p-12 pt-24 justify-center items-center gap-8" id="facilities">
-      <div className="flex flex-row text-3xl justify-center items-center w-full gap-2 text-center text-yellow-500">
-        <MdEmojiPeople className="text-5xl" />
-        <h2>Our Facilities</h2>
+    <section className="flex w-full flex-col justify-center items-center gap-8" id="facilities">
+      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500">
+        <MdEmojiPeople className="md:text-4xl text-3xl" />
+        <h2 className="md:text-3xl text-2xl">Our Facilities</h2>
       </div>
 
       <Features />
 
       <div className="flex flex-row flex-wrap w-full gap-2 justify-center items-center" id="facilities_container">
         {urls.map((url, index) => (
-          <img width={300} src={url} key={url} id={`facilities_${index}`} className="cursor-pointer shadow-md rounded-md gallery_img" />
+          <img width={350} src={url} key={url} id={`facilities_${index}`} className="cursor-pointer shadow-md rounded-md gallery_img" />
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 

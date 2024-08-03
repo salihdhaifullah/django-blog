@@ -8,21 +8,35 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import About from './components/About';
 import Slider from './utils/Slider';
+import { useEffect, useRef } from 'react';
 
 const App = () => {
+  const render = useRef(false)
+
+  useEffect(() => {
+    if (!render.current) {
+      document.dispatchEvent(new Event("dom-mounted"))
+      render.current = true;
+    }
+  }, [])
+
   return (
-    <div className='flex flex-col w-full'>
+    <>
       <Slider />
       <Header />
       <Hero />
-      <About />
-      <Facilities />
-      <Apartments />
-      <Gallery />
-      <Reviews />
-      <Contact />
+
+      <main className='flex flex-col w-full md:gap-12 gap-6 lg:px-12 md:px-8 sm:px-6 px-4 py-12 md:py-24'>
+        <About />
+        <Facilities />
+        <Apartments />
+        <Gallery />
+        <Reviews />
+        <Contact />
+      </main>
+
       <Footer />
-    </div>
+    </>
   );
 };
 

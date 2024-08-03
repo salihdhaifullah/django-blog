@@ -12,12 +12,39 @@
     <script type="module" src="/src/main.tsx"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        document.addEventListener("dom-mounted", () => {
+            initContactForm()
+            initGalleryModal()
+            initHamburger()
+            initHeader()
+            initReviews()
+            initApartmentsCards()
+        })
+    </script>
 
     <script id="reviews-carousel">
-        function reviewsInit() {
+        const getScrollbarWidth = () => {
+            const container = document.createElement('div');
+            container.style.width = '100px';
+            container.style.height = '100px';
+            container.style.overflow = 'scroll';
+            container.style.position = 'absolute';
+            container.style.top = '-9999px';
+            document.body.appendChild(container);
+
+            const scrollbarWidth = container.offsetWidth - container.clientWidth;
+            document.body.removeChild(container);
+
+            return scrollbarWidth;
+        };
+
+        function initReviews() {
             const back = document.getElementById("review-go-back")
             const forward = document.getElementById("review-go-forward")
             const container = document.getElementById("scroll-container")
+            let width = window.innerWidth >= 640 ? 380+48 : 250+48;
+            document.addEventListener("resize", () => { width = window.innerWidth >= 640 ? 380+48 : 250+48 })
 
             function isAtEnd() {
                 return container.scrollLeft + container.offsetWidth >= container.scrollWidth;
@@ -28,19 +55,44 @@
             }
 
             function goBack() {
-                container.scrollTo({left: isAtStart() ? container.scrollWidth : container.scrollLeft - 366, behavior: 'smooth'});
+                container.scrollTo({ left: isAtStart() ? container.scrollWidth : container.scrollLeft - width, behavior: 'smooth' });
             }
 
             function goForward() {
-                container.scrollTo({left: isAtEnd() ? 0 : container.scrollLeft + 366, behavior: 'smooth'});
+                container.scrollTo({ left: isAtEnd() ? 0 : container.scrollLeft + width, behavior: 'smooth' });
             }
 
 
             back.addEventListener("click", (e) => goBack())
             forward.addEventListener("click", (e) => goForward())
         }
+    </script>
 
-        setTimeout(() => {reviewsInit()}, 1000)
+    <script id="apartments-cards">
+        function initApartmentsCards() {
+            const cards = document.getElementsByClassName("main-apartments-container");
+            for (const card of cards) {
+                const width = card.offsetWidth;
+                const scrollContainer = card.children[0]
+                const dots = card.children[1].children
+
+                function clearDots() {
+                    for (const dot of dots) {
+                        dot.classList.remove("bg-yellow-500")
+                        dot.classList.add("bg-gray-200")
+                    }
+                }
+
+                for (const dot of dots) {
+                    dot.addEventListener("click", () => {
+                        clearDots();
+                        dot.classList.add("bg-yellow-500");
+                        const index = Number(dot.id);
+                        scrollContainer.scrollTo({ left: index * width, behavior: "smooth" });
+                    })
+                }
+            }
+        }
     </script>
 
 
@@ -94,7 +146,6 @@
                 })
         }
 
-        setTimeout(() => {initContactForm()}, 1000)
     </script>
 
 
@@ -112,8 +163,6 @@
         }
 
         function openImage(imageId) {
-            // if (window.outerWidth < 1024 || window.innerWidth < 1024) return;
-
             currentImage = imageId;
 
             const img = document.getElementById("gallery-img");
@@ -169,7 +218,6 @@
             prev.addEventListener("click", prevImage)
         }
 
-        setTimeout(() => {initGalleryModal()}, 1000)
     </script>
 
     <script id="header">
@@ -179,7 +227,7 @@
             const menuButton = document.getElementById("menu-button");
 
             window.addEventListener('scroll', function () {
-                if (window.scrollY > (hero.clientHeight - 80)) {
+                if (window.scrollY > (hero.clientHeight - header.clientHeight)) {
                     header.classList.remove('fill-white', 'text-white');
                     header.classList.add('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
                     for (const child of menuButton.children) {
@@ -197,7 +245,6 @@
             });
         }
 
-        setTimeout(() => {initHeader()}, 1000)
     </script>
 
     <script id="nav-bar">
@@ -216,7 +263,6 @@
             });
         };
 
-        setTimeout(() => {initHamburger()}, 1000);
     </script>
 </body>
 
