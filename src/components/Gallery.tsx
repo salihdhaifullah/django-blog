@@ -21,9 +21,9 @@ const urls = [
 const Gallery = () => {
   return (
     <section className="flex w-full flex-col justify-center items-center gap-8" id="gallery">
-      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500">
-        <MdLocalActivity className="md:text-4xl text-3xl"  />
-        <h2 className="md:text-3xl text-2xl" >Our Gallery</h2>
+      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500 md:text-4xl text-3xl">
+        <MdLocalActivity />
+        <h2>Our Gallery</h2>
       </div>
 
       <div className="flex flex-row flex-wrap w-full gap-2 justify-center items-center" id="gallery_container">

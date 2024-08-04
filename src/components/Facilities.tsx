@@ -1,4 +1,4 @@
-import { MdEmojiPeople } from "react-icons/md"
+import { MdPeople } from "react-icons/md"
 import Features from "./Features"
 
 const urls = [
@@ -19,9 +19,9 @@ const urls = [
 const Facilities = () => {
   return (
     <section className="flex w-full flex-col justify-center items-center gap-8" id="facilities">
-      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500">
-        <MdEmojiPeople className="md:text-4xl text-3xl" />
-        <h2 className="md:text-3xl text-2xl">Our Facilities</h2>
+      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500 md:text-4xl text-3xl">
+        <MdPeople  />
+        <h2>Our Facilities</h2>
       </div>
 
       <Features />

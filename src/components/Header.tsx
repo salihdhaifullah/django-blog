@@ -3,7 +3,7 @@ import Logo from "../utils/Logo";
 const Header = () => {
     return (
         <header id="header" className="md:py-4 py-2 lg:px-12 md:px-6 sm:px-6 px-4 flex w-full transition-all fill-white text-white fixed top-0 flex-row justify-between items-center z-50 bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0)]">
-            <a href="#home">
+            <a href="#hero">
                 <Logo className="lg:h-12 md:h-11 h-10 w-fit" />
             </a>
 
@@ -19,7 +19,7 @@ const Header = () => {
                 </button>
             </div>
 
-            <div id="nav-bar" className="flex !z-50 flex-col transition-all gap-4 text-xl md:hidden fixed top-14 -right-48 bg-yellow-50 w-40 justify-start items-center py-8 h-fit p-2 rounded-md shadow-lg text-yellow-500">
+            <div id="nav-bar" className="flex !z-50 flex-col transition-all gap-4 text-xl md:hidden fixed top-14 -right-48 bg-gray-50 w-40 justify-start items-center py-8 h-fit p-2 rounded-md shadow-lg text-yellow-500">
                 <Links navBar />
             </div>
         </header>

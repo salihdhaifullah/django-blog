@@ -5,18 +5,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spectrum Holiday Apartments - Gold Coast's Best Kept Secret</title>
-    <meta name="description" content="Discover the charm of Spectrum waterfront holiday apartments in Surfers Paradise. Enjoy stunning riverfront views, luxury amenities, and endless entertainment. Book your tranquil escape now.">
-    <meta name="keywords" content="Spectrum Holiday Apartments, Gold Coast accommodation, Surfers Paradise, waterfront apartments, holiday rentals, luxury stays, Budds Beach, riverfront views, family accommodation, Surfers Paradise holidays">
+    <meta name="description"
+        content="Discover the charm of Spectrum waterfront holiday apartments in Surfers Paradise. Enjoy stunning riverfront views, luxury amenities, and endless entertainment. Book your tranquil escape now.">
+    <meta name="keywords"
+        content="Spectrum Holiday Apartments, Gold Coast accommodation, Surfers Paradise, waterfront apartments, holiday rentals, luxury stays, Budds Beach, riverfront views, family accommodation, Surfers Paradise holidays">
     <meta name="robots" content="index, follow">
 
     <meta property="og:title" content="Spectrum Holiday Apartments - Gold Coast's Best Kept Secret">
-    <meta property="og:description" content="Discover the charm of Spectrum waterfront holiday apartments in Surfers Paradise. Enjoy stunning riverfront views, luxury amenities, and endless entertainment. Book your tranquil escape now.">
+    <meta property="og:description"
+        content="Discover the charm of Spectrum waterfront holiday apartments in Surfers Paradise. Enjoy stunning riverfront views, luxury amenities, and endless entertainment. Book your tranquil escape now.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="/">
     <meta property="og:image" content="/hero-thumbnail.jpg">
-    
+
     <link rel="icon" href="/logo.svg" type="image/svg+xml">
     <meta name="author" content="Salih Dhaifullah, Powered by quicksite.guru">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -55,8 +62,8 @@
             const back = document.getElementById("review-go-back")
             const forward = document.getElementById("review-go-forward")
             const container = document.getElementById("scroll-container")
-            let width = window.innerWidth >= 640 ? 380+48 : 250+48;
-            document.addEventListener("resize", () => { width = window.innerWidth >= 640 ? 380+48 : 250+48 })
+            let width = window.innerWidth >= 640 ? 380 + 48 : 250 + 48;
+            document.addEventListener("resize", () => { width = window.innerWidth >= 640 ? 380 + 48 : 250 + 48 })
 
             function isAtEnd() {
                 return container.scrollLeft + container.offsetWidth >= container.scrollWidth;
@@ -91,7 +98,7 @@
                 function clearDots() {
                     for (const dot of dots) {
                         dot.classList.remove("bg-yellow-500")
-                        dot.classList.add("bg-gray-200")
+                        dot.classList.add("bg-gray-300")
                     }
                 }
 
@@ -240,15 +247,15 @@
 
             window.addEventListener('scroll', function () {
                 if (window.scrollY > (hero.clientHeight - header.clientHeight)) {
-                    header.classList.remove('fill-white', 'text-white');
-                    header.classList.add('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
+                    header.classList.remove('bg-gradient-to-b', 'fill-white', 'text-white');
+                    header.classList.add('bg-gray-50', 'shadow-lg', 'fill-yellow-500', 'text-yellow-500');
                     for (const child of menuButton.children) {
                         child.classList.remove("bg-white")
                         child.classList.add("bg-yellow-500")
                     }
                 } else {
-                    header.classList.remove('bg-colored', 'text-yellow-500', 'fill-yellow-500', 'shadow-lg');
-                    header.classList.add('fill-white', 'text-white');
+                    header.classList.remove('bg-gray-50', 'shadow-lg', 'fill-yellow-500', 'text-yellow-500');
+                    header.classList.add('bg-gradient-to-b', 'fill-white', 'text-white');
                     for (const child of menuButton.children) {
                         child.classList.remove("bg-yellow-500")
                         child.classList.add("bg-white")

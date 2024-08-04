@@ -38,7 +38,7 @@ export default Slider;
 
 const IconContainer = ({ children, id }: { children: ReactElement, id: string }) => {
   return (
-    <div id={id} className="lg:text-4xl md:text-3xl text-2xl lg:p-1 md:p-[3px] p-[2px] text-blue-600 cursor-pointer w-fit flex bg-yellow-50 bg-opacity-60 hover:bg-opacity-80 rounded-full text-center shadow-lg">
+    <div id={id} className="lg:text-4xl md:text-3xl text-2xl lg:p-1 md:p-[3px] p-[2px] text-yellow-600 cursor-pointer w-fit flex bg-white bg-opacity-75 hover:bg-opacity-100 rounded-full text-center shadow-lg">
       {children}
     </div>
   )

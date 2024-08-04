@@ -61,9 +61,9 @@ const apartments = [
 const Apartments = () => {
   return (
     <section className="flex flex-col justify-center w-full items-center gap-8" id="apartments">
-      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500">
-        <MdBed className="md:text-4xl text-3xl" />
-        <h2 className="md:text-3xl text-2xl">Our Apartments</h2>
+      <div className="flex flex-row justify-center items-center w-full md:gap-2 gap-1 text-center text-yellow-500 md:text-4xl text-3xl">
+        <MdBed />
+        <h2>Our Apartments</h2>
       </div>
 
 
@@ -81,7 +81,7 @@ export default Apartments
 
 const ApartmentCard = (props: typeof apartments[0]) => {
   return (
-    <div className="bg-yellow-50 rounded-lg shadow-lg overflow-hidden sm:w-[550px] w-full">
+    <div className="bg-gray-50 rounded-lg shadow-lg overflow-hidden sm:w-[550px] w-full">
 
       <div className="flex w-full h-auto overflow-hidden flex-col gap-4 main-apartments-container">
         <div className="w-full flex flex-row h-full overflow-x-auto hide-scroll-bar" id={`${props.type}_container`}>
@@ -92,27 +92,27 @@ const ApartmentCard = (props: typeof apartments[0]) => {
 
         <div className="flex flex-row gap-2 px-6 w-full justify-center cursor-pointer">
           {props.images.map((_, index) => (
-            <div key={index} id={index.toString()} className={`rounded-full p-1.5 ${index === 0 ? "bg-yellow-500" : "bg-gray-200"}`}></div>
+            <div key={index} id={index.toString()} className={`rounded-full p-1.5 ${index === 0 ? "bg-yellow-500" : "bg-gray-300"}`}></div>
           ))}
         </div>
       </div>
 
       <div className="p-6 flex flex-col gap-6 text-center items-center">
-        <h3 className="text-2xl text-yellow-500">{props.type} Apartments</h3>
+        <h3 className="text-2xl text-yellow-500 font-medium">{props.type} Apartments</h3>
 
         <div className="flex flex-row justify-evenly flex-wrap gap-4 w-full text-gray-500">
           <div className="flex items-center gap-2">
-            <MdBed className="sm:text-2xl text-xl text-blue-600" />
+            <MdBed className="sm:text-2xl text-xl text-yellow-500" />
             <span>{props.bedrooms} Bedrooms</span>
           </div>
 
           <div className="flex items-center gap-2">
-            <MdBathtub className="sm:text-2xl text-xl text-blue-600" />
+            <MdBathtub className="sm:text-2xl text-xl text-yellow-500" />
             <span>{props.bathrooms} Bathrooms</span>
           </div>
 
           <div className="flex items-center gap-2">
-            <MdPeople className="sm:text-2xl text-xl text-blue-600" />
+            <MdPeople className="sm:text-2xl text-xl text-yellow-500" />
             <span>{props.guests} Guests</span>
           </div>
         </div>

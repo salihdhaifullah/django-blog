@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section id="hero" className="relative w-full h-screen overflow-hidden">
+    <section id="hero" className="relative w-full h-[85vh] overflow-hidden">
       <video
         preload="none"
         poster="hero-thumbnail.jpg"
@@ -14,7 +14,7 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       
-      <div className="absolute bottom-[30%] z-10 flex flex-col text-center items-center justify-center w-full gap-8 px-4">
+      <div className="absolute bottom-[30%] z-10 flex flex-col text-center items-center justify-center w-full gap-12 md:gap-20 px-4">
         <div className="flex flex-col items-center gap-3">
           <h1 className="md:text-6xl text-5xl text-yellow-500">Spectrum</h1>
           <h2 className="md:text-2xl text-xl text-white">GOLD COAST'S BEST KEPT SECRET</h2>

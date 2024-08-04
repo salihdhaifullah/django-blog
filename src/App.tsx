@@ -26,7 +26,7 @@ const App = () => {
       <Header />
       <Hero />
 
-      <main className='flex flex-col w-full md:gap-12 gap-6 lg:px-12 md:px-8 sm:px-6 px-4 py-12 md:py-24'>
+      <main className='flex flex-col w-full md:gap-12 gap-6 lg:px-12 md:px-8 sm:px-6 px-4'>
         <About />
         <Facilities />
         <Apartments />
