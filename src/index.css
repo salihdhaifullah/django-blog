@@ -68,3 +68,8 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+
+.logo-container > svg {
+    width: 100%;
+    height: 100%;
+}

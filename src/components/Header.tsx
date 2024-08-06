@@ -4,7 +4,9 @@ const Header = () => {
     return (
         <header id="header" className="md:py-4 py-2 lg:px-12 md:px-6 sm:px-6 px-4 flex w-full transition-all fill-white text-white fixed top-0 flex-row justify-between items-center z-50 bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0)]">
             <a href="#hero">
-                <Logo className="lg:h-12 md:h-11 h-10 w-fit" />
+                <div className="flex lg:h-12 md:h-11 h-10 w-fit logo-container">
+                    <Logo />
+                </div>
             </a>
 
             <div className="flex-row lg:gap-4 gap-2.5 lg:text-xl text-lg md:flex hidden">

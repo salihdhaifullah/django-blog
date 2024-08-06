@@ -10,7 +10,9 @@ const Footer = () => {
       <div className="md:pt-8 pt-4 pb-2 lg:px-10 md:px-8 sm:px-6 px-4 flex flex-col gap-8 bg-gray-50 w-full shadow-lg">
 
         <div className="flex justify-center items-center">
-          <Logo className="md:!h-12 !h-8 w-fit flex fill-yellow-500" />
+          <div className="flex md:!h-12 !h-8 w-fit fill-yellow-500 logo-container">
+            <Logo />
+          </div>
         </div>
 
         <div className="flex justify-center items-center">
