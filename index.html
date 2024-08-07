@@ -23,7 +23,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -95,17 +97,28 @@
                 const scrollContainer = card.children[0]
                 const dots = card.children[1].children
 
-                function clearDots() {
-                    for (const dot of dots) {
-                        dot.classList.remove("bg-yellow-500")
-                        dot.classList.add("bg-gray-300")
-                    }
+                const observer = new IntersectionObserver(intersections => {
+                    intersections.forEach((e) => {
+                        const index = Number(e.target.id.split("_")[1])
+                        const dot = dots[index]
+   
+                        if (e.isIntersecting) {
+                            dot.classList.remove("bg-gray-300")
+                            dot.classList.add("bg-yellow-500");
+                        } else {
+                            dot.classList.add("bg-gray-300")
+                            dot.classList.remove("bg-yellow-500");
+                        }
+                    });
+                }, { threshold: 0.6});
+
+
+                for (const img of scrollContainer.children) {
+                    observer.observe(img);
                 }
 
                 for (const dot of dots) {
                     dot.addEventListener("click", () => {
-                        clearDots();
-                        dot.classList.add("bg-yellow-500");
                         const index = Number(dot.id);
                         scrollContainer.scrollTo({ left: index * width, behavior: "smooth" });
                     })
