@@ -5,7 +5,7 @@ import { IoClose } from "react-icons/io5"
 const Slider = () => {
   return (
     <div id="bg-modal" className="fixed hidden top-0 left-0 w-full h-full justify-center items-center bg-black bg-opacity-85 z-[100] none-selectable">
-      <div className="relative w-full h-full flex flex-col justify-center items-center">
+      <div className="relative overflow-hidden w-full h-full flex flex-col justify-center items-center">
 
         <div className="flex z-50 absolute lg:right-4 md:right-3 sm:right-2 right-1  top-4">
           <IconContainer id="gallery-close">
@@ -25,9 +25,12 @@ const Slider = () => {
           </IconContainer>
         </div>
 
-        <img id="gallery-img" className="max-h-full max-w-full object-contain rounded-lg shadow-lg" />
-      </div>
+        <div className="w-full h-full relative">
+          <div className="w-[300%] h-full flex flex-row absolute" id="carousel">
 
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

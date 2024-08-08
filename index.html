@@ -36,7 +36,7 @@
     <script>
         document.addEventListener("dom-mounted", () => {
             initContactForm()
-            initGalleryModal()
+            new GalleryCarousel()
             initHamburger()
             initHeader()
             initReviews()
@@ -101,7 +101,7 @@
                     intersections.forEach((e) => {
                         const index = Number(e.target.id.split("_")[1])
                         const dot = dots[index]
-   
+
                         if (e.isIntersecting) {
                             dot.classList.remove("bg-gray-300")
                             dot.classList.add("bg-yellow-500");
@@ -110,12 +110,17 @@
                             dot.classList.remove("bg-yellow-500");
                         }
                     });
-                }, { threshold: 0.6});
+                }, { threshold: 0.5 });
 
 
                 for (const img of scrollContainer.children) {
                     observer.observe(img);
                 }
+
+                scrollContainer.addEventListener("scrollend", () => {
+                    const index = Math.round(scrollContainer.scrollLeft/scrollContainer.offsetWidth)
+                    scrollContainer.scrollTo({ left: index * width, behavior: "smooth" });
+                })
 
                 for (const dot of dots) {
                     dot.addEventListener("click", () => {
@@ -182,74 +187,173 @@
 
 
     <script id="gallery-carousel">
-        let currentImage;
-        let prefix;
-        let isOpen = false;
+        class GalleryCarousel {
+            constructor() {
+                this.isAnimating = false;
+                this.prevIndex = null;
+                this.nextIndex = null;
+                this.currentIndex = null;
+                this.lastImage = null;
+                this.prefix = null;
 
-        function openModal() {
-            const modal = document.getElementById("bg-modal");
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            isOpen = true;
-        }
-
-        function openImage(imageId) {
-            currentImage = imageId;
-
-            const img = document.getElementById("gallery-img");
-            img.src = document.getElementById(`${prefix}_${currentImage}`).src;
-
-            if (!isOpen) openModal()
-        }
-
-        function getLastIndex() {
-            const container = document.getElementById(`${prefix}_container`)
-            return container.children.length - 1;
-        }
-
-        function initGalleryModal() {
-            const modal = document.getElementById("bg-modal")
-            const close = document.getElementById("gallery-close")
-            const next = document.getElementById("gallery-next")
-            const prev = document.getElementById("gallery-prev")
-
-
-            function closeGalleryModal() {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-                isOpen = false;
+                this.carousel = document.getElementById("carousel");
+                this.modal = document.getElementById("bg-modal");
+                this.initGalleryModal();
             }
 
-            function nextImage() {
-                if (currentImage === getLastIndex()) currentImage = 0
-                else currentImage++
+            async cloneImage(imageId) {
+                const new_img = await new Promise((resolve) => {
+                    const new_img = document.createElement("img");
+                    new_img.src = document.getElementById(`${this.prefix}_${imageId}`).src;
+                    new_img.onload = () => resolve(new_img);
+                });
 
-                openImage(currentImage);
+                return new_img;
             }
 
-            function prevImage() {
-                if (currentImage === 0) currentImage = getLastIndex()
-                else currentImage--
+            initImagesClick() {
+                const imgs = document.getElementsByClassName("gallery_img");
 
-                openImage(currentImage);
+                for (const img of imgs) {
+                    img.addEventListener("click", () => {
+                        const data = img.id.split("_");
+                        this.openImage(data[0], Number(data[1]));
+                    });
+                }
             }
 
-            const imgs = document.getElementsByClassName("gallery_img")
+            initSwipeEvent() {
+                let startX = 0, startY = 0, distX = 0, distY = 0;
+                this.carousel.addEventListener("touchstart", (e) => {
+                    startX = e.changedTouches[0].pageX;
+                    startY = e.changedTouches[0].pageY;
+                });
 
-            for (const img of imgs) {
-                img.addEventListener("click", () => {
-                    const data = img.id.split("_");
-                    prefix = data[0]
-                    openImage(Number(data[1]))
+                this.carousel.addEventListener("touchmove", (e) => {
+                    e.preventDefault();
+                });
+
+                this.carousel.addEventListener("touchend", (e) => {
+                    distX = e.changedTouches[0].pageX - startX;
+                    distY = e.changedTouches[0].pageY - startY;
+
+                    if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > (this.carousel.offsetWidth * 0.15)) {
+                        if (distX > 0) this.goPrev();
+                        else this.goNext();
+                    }
                 });
             }
 
-            close.addEventListener("click", closeGalleryModal)
-            next.addEventListener("click", nextImage)
-            prev.addEventListener("click", prevImage)
-        }
+            closeGalleryModal() {
+                this.modal.classList.remove('flex');
+                this.modal.classList.add('hidden');
+                this.carousel.innerHTML = "";
 
+                this.prevIndex = null;
+                this.nextIndex = null;
+                this.currentIndex = null;
+                this.lastImage = null;
+                this.prefix = null;
+            }
+
+
+            openImage(prefix, imageId) {
+                const clickedImage = document.getElementById(`${prefix}_${imageId}`);
+
+                this.lastImage = clickedImage.parentNode.children.length - 1;
+                this.currentIndex = imageId;
+                this.prefix = prefix;
+                this.prevIndex = imageId === 0 ? this.lastImage : imageId - 1;
+                this.nextIndex = imageId === this.lastImage ? 0 : imageId + 1;
+
+                this.initSwipeEvent();
+                this.initImages();
+                this.modal.classList.remove('hidden');
+                this.modal.classList.add('flex');
+            }
+
+
+            goPrev() {
+                if (this.isAnimating) return;
+                this.nextIndex = this.currentIndex;
+                this.currentIndex = this.prevIndex;
+                this.prevIndex = this.prevIndex === 0 ? this.lastImage : this.prevIndex - 1;
+                this.animateTransition(true);
+            }
+
+            goNext() {
+                if (this.isAnimating) return;
+                this.prevIndex = this.currentIndex;
+                this.currentIndex = this.nextIndex;
+                this.nextIndex = this.nextIndex === this.lastImage ? 0 : this.nextIndex + 1;
+                this.animateTransition(false);
+            }
+
+            addAnimations(isLeft) {
+                const width = this.carousel.children[0].offsetWidth;
+
+                if (isLeft) {
+                    const num = Math.min(Number(this.carousel.style.marginLeft.split("px")[0]) + 20, 0);
+                    this.carousel.style.marginLeft = `${num}px`;
+                    if (num === 0) {
+                        this.isAnimating = false;
+                        return;
+                    }
+                } else {
+                    const inverseWidth = -width;
+                    const num = Math.max(Number(this.carousel.style.marginLeft.split("px")[0]) - 20, inverseWidth);
+                    this.carousel.style.marginLeft = `${num}px`;
+
+                    if (num === inverseWidth) {
+                        const child = this.carousel.children[0];
+                        const childCopy = child.cloneNode(true);
+                        this.carousel.removeChild(child);
+                        this.carousel.appendChild(childCopy);
+                        this.carousel.style.marginLeft = `0px`;
+                        this.isAnimating = false;
+                        return;
+                    }
+                }
+
+                requestAnimationFrame(() => this.addAnimations(isLeft));
+            }
+
+            async initImages(isLeft = true) {
+                const fragment = new DocumentFragment();
+
+                if (isLeft) {
+                    fragment.appendChild(await this.cloneImage(this.currentIndex));
+                    fragment.appendChild(await this.cloneImage(this.nextIndex));
+                    fragment.appendChild(await this.cloneImage(this.prevIndex));
+                } else {
+                    fragment.appendChild(await this.cloneImage(this.prevIndex));
+                    fragment.appendChild(await this.cloneImage(this.currentIndex));
+                    fragment.appendChild(await this.cloneImage(this.nextIndex));
+                }
+
+                this.carousel.innerHTML = "";
+                this.carousel.appendChild(fragment);
+            }
+
+            async animateTransition(isLeft) {
+                this.isAnimating = true;
+                await this.initImages(isLeft);
+
+                const width = this.carousel.children[0].offsetWidth;
+
+                if (isLeft) this.carousel.style.marginLeft = `${-1 * width}px`;
+                else this.carousel.style.marginLeft = "0px";
+
+                requestAnimationFrame(() => this.addAnimations(isLeft));
+            }
+
+            initGalleryModal() {
+                this.initImagesClick();
+                document.getElementById("gallery-close").addEventListener("click", () => this.closeGalleryModal());
+                document.getElementById("gallery-prev").addEventListener("click", () => this.goPrev());
+                document.getElementById("gallery-next").addEventListener("click", () => this.goNext());
+            }
+        }
     </script>
 
     <script id="header">
